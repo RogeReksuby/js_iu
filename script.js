@@ -75,20 +75,6 @@ window.onload = function(){
         outputElement.innerHTML = a;
     }
     
-    /*
-    document.getElementById("btn_on_sign").onclick = function() {
-        if (a == '')
-        {
-            return;
-        }
-
-        expressionResult = 0 - (+a);
-        a = expressionResult.toString();
-        b = '';
-        selectedOperation = null;
-        outputElement.innerHTML = a;
-    }
-    */
 
     document.getElementById("btn_op_del").onclick = function() {
         a = a.toString()
@@ -221,6 +207,36 @@ window.onload = function(){
         } else return
     }
 
+    document.getElementById("btn_000").onclick = function() {
+        a = a.toString()
+        b = b.toString()
+    
+        if (a !== '' && b === '') {
+            if (a === '0') 
+            {
+                a = '0'
+                outputElement.innerHTML = a
+            } 
+                else 
+            {
+                a = a + '000'
+                outputElement.innerHTML = a
+            }
+        } 
+            else if (b !== '') {
+            
+            if (b === '0') 
+                {
+                b = '0'
+                outputElement.innerHTML = b
+            } 
+            else 
+            {
+                b = b + '000'
+                outputElement.innerHTML = b
+            }
+        }
+    };
 
 
     // кнопка расчёта результата
