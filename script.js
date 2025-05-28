@@ -164,7 +164,7 @@ window.onload = function(){
             return x * fact(x - 1)
         }
     }
-
+/*
     document.getElementById("btn_op_fct").onclick = function()
     {
         if (a != '' && b == '')
@@ -192,6 +192,20 @@ window.onload = function(){
                 b = ''
                 outputElement.innerHTML = 'Error'
             }
+        }
+    }
+*/
+    document.getElementById("btn_op_ice").onclick = function()
+    {
+        if (a != '' && b == '')
+        {
+            a = 900 * a * 10
+            outputElement.innerHTML = a
+        }
+        else if (b != '')
+        {
+            b = 900 * b * 10
+            outputElement.innerHTML = b
         }
     }
 
