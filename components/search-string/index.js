@@ -28,7 +28,7 @@ export class SearchStringComponent {
         return (
             `
             <div>
-                <input type="text" id="search-string" placeholder="Введите название" />
+                <input type="text" id="search-string" class="rt-input__input search" placeholder="Введите название" />
                 <button id="filter-button" class="btn mycard-button" type="button">Поиск</button>
             </div>
             `
