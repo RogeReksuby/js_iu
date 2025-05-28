@@ -2,6 +2,8 @@ import {ProductComponent} from "../../components/product/index.js";
 import {BackButtonComponent} from "../../components/back-button/index.js";
 import {TopPanelComponent} from "../../components/top-panel/index.js";
 import {MainPage} from "../main/index.js";
+import {ajax} from "../../modules/ajax.js";
+import {stockUrls} from "../../modules/stockUrls.js";
 
 export class ProductPage {
     constructor(parent, id, data) {
@@ -23,8 +25,33 @@ export class ProductPage {
         mainPage.render()
     }
 
-    getData() {
+    getDataOld() {
         return this.data
+    }
+
+    getData() {
+    ajax.get(stockUrls.getTariffById(this.id), (data) => {
+        this.renderData(data);
+    })
+    }
+
+    renderData(item) {
+    const product = new ProductComponent(this.pageRoot)
+    product.render(item)
+    }
+
+    render() {
+    this.parent.innerHTML = ''
+    const html = this.getHTML()
+    this.parent.insertAdjacentHTML('beforeend', html)
+
+    const panel = new TopPanelComponent(this.pageRoot)
+    panel.render(this.clickHomePanel.bind(this)) 
+
+    const backButton = new BackButtonComponent(this.pageRoot)
+    backButton.render(this.clickBack.bind(this))
+
+    this.getData()
     }
 
     get pageRoot() {
@@ -39,7 +66,7 @@ export class ProductPage {
         )
     }
 
-    render() {
+    renderOld() {
         this.parent.innerHTML = ''
         const html = this.getHTML()
         this.parent.insertAdjacentHTML('beforeend', html)
