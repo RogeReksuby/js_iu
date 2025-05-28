@@ -1,0 +1,50 @@
+.btn.panel-button {
+    padding: 8px 16px;
+    background: white;
+    color: #101828;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn.panel-button:hover {
+    color: #ff4f12;
+    background: white; 
+}
+
+.btn.panel-button:active {
+    background: white;
+    color: #ff4f12;
+}
+
+.btn.mycard-button {
+    background: #ff4f12;
+    color: white;
+}
+
+.btn.mycard-button:hover {
+    background: #d93d0c;
+    color: white;
+}
+
+.btn.mycard-button:active {
+    background: #d93d0c;
+    color: white;
+}
+
+.btn.mycard-button.alert {
+    width: 500px;
+}
+
+.mycard-img {
+    max-height: 100px;
+    object-fit: cover;
+}
+
+.alert-info.myalert {
+    width: 700px;
+    background: #7700ff;
+    color: white;
+    opacity: 90%;
+    padding-bottom: 50px;
+}
