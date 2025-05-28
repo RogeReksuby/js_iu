@@ -21,6 +21,7 @@ export class ProductCardComponent {
                         </div>
                         <div class="mt-auto">
                             <button class="btn mycard-button" id="click-card-${data.id}" data-id="${data.id}">Подробнее</button>
+                            <button class="btn mycard-button" id="update-card-${data.id}" data-id="${data.id}">Изменить</button>
                             <button class="btn mycard-button" id="del-card-${data.id}" data-id="${data.id}">Удалить запись</button>
                         </div>
                     </div>
@@ -30,22 +31,25 @@ export class ProductCardComponent {
     }
 
 
-    addListeners(data, detailsListener, delListener) {
+    addListeners(data, detailsListener, delListener, changeListener) {
         const detailsButton = document.getElementById(`click-card-${data.id}`)
         detailsButton.addEventListener("click", detailsListener)
         
+        const updButton = document.getElementById(`update-card-${data.id}`)
+        updButton.addEventListener("click", changeListener)
+
         const delButton = document.getElementById(`del-card-${data.id}`)
         delButton.addEventListener("click", delListener)
     }
     
 
 
-    render(data, detailsListener, delListener) {
+    render(data, detailsListener, delListener, changeListener) {
         const html = this.getHTML(data)
 
         
         this.parent.insertAdjacentHTML('beforeend', html)
-        this.addListeners(data, detailsListener, delListener)
+        this.addListeners(data, detailsListener, delListener, changeListener)
     }
 
 }
