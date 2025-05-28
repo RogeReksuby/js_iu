@@ -20,6 +20,7 @@
 .btn.mycard-button {
     background: #ff4f12;
     color: white;
+    margin-top: 10px;
 }
 
 .btn.mycard-button:hover {
@@ -47,4 +48,60 @@
     color: white;
     opacity: 90%;
     padding-bottom: 50px;
+}
+
+.mystringtext {
+    width: 50%;
+    font-size: 16px;
+
+}
+
+.rt-input__textar {
+  position: relative;
+  font-size: 16px;
+  width: 50%;
+  height: 140px;
+  
+  background-color: #f2f3f4;
+  outline: 1px solid #ccc;
+  border: 1px solid #ccc;
+  
+  border-radius: 4px;
+  text-overflow: ellipsis;
+  transition: border 0.2s;
+}
+
+.rt-input__input {
+  position: relative;
+  font-size: 16px;
+  width: 50%;
+  height: 40px;
+  background-color: #f2f3f4;
+  outline: 1px solid #ccc;
+  border: 1px solid #ccc;
+  
+  border-radius: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: border 0.2s;
+}
+
+.rt-input__input.search {
+    width: 60%;
+    height: 32px;
+    
+}
+
+.rt-input__input.specialtext {
+    height: 100px;
+}
+
+.rt-input__input.specialtext::placeholder {
+    padding-top: 10px;
+    
+}
+
+.rt-input__input:focus {
+    border: 2px solid #ff4f12;  /* Зелёная граница */
+    
 }
