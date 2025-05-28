@@ -4,64 +4,73 @@ import {TopPanelComponent} from "../../components/top-panel/index.js";
 import {DZButtonComponent} from "../../components/dz1-button/index.js";
 import {SearchStringComponent} from "../../components/search-string/index.js";
 import {ProductPage} from "../product/index.js";
+import {ajax} from "../../modules/ajax.js";
+import {stockUrls} from "../../modules/stockUrls.js";
+import { CreatePage } from "../createPage/index.js";
 
 // основная страница
 export class MainPage {
     constructor(parent) {
         this.parent = parent;
-        this.data = [
-            {
-                id: 1,
-                src: "src/test.jpg",
-                title: "Тест-драйв",
-                text: "Безлимитный интернет 500 мбит/с. Попробуйте и пользуйтесь услугами в течении 30 дней бесплатно",
-                specialText: "Тариф Тест-драйв позволяет использовать услуги провайдера бесплатно в течении 30 дней." +
-                 "Стартовый платеж при подключении услуг на условиях акции не взимается."+
-                 "Плата за предоставление доступа и инсталляционный платеж по услугам начисляются в полном объеме в третий месяц пользования услугами или с 31 дня по тарифам и на условиях, действующих в региональных филиалах по тарифам. Если абонент расторгает договор на оказание услуг во время действия промо-периода, то плата за предоставление доступа и инсталляционный платеж абоненту не начисляются.",
-                price: 0
-            },
-            {
-                id: 2,
-                src: "src/game.jpg",
-                title: "Игровой 2в1",
-                text: "Безлимитный интернет 890 мбит/с. Интерактивное ТВ",
-                specialText: "Помимо высокоскоростного интернета 890 мбит/с по технологии FTTb, тариф также содержит в себя ряд игровых опций для получения преимущества в играх. Интерактивное ТВ включает 224 канала с  возможностью ставить эфир на паузу или смотреть передачи из архива. Доступен онлайн-кинотеатр с доступом более чем к 27000 фильмов и сериалов.",
-                price: 1190
-            },
-            {
-                id: 3,
-                src: "src/talk.jpg",
-                title: "Технологии общения",
-                text: "Безлимитный интернет 500 мбит/с. Мобильная связь",
-                specialText: "Помимо высокоскоростного интернета 500 мбит/с по технологии FTTb, тариф также дает доступ к мобильной связи. Базовый пакет минут на звоник - 1000 минут. Безлимитные звонки на номера провайдера и звонки из пакета минут на остальные номера даже в поездках по России. 500 СМС на сотовые телефоны домашнего региона. 40 Гб мобильного интернета с максимальной скоростью трафика, а также безлимит для социальных сетей ВК, Telegram, Whatsapp, Одноклассники.",
-                price: 890
-            },
-        ]
+        this.data = [];
+        // this.data = [
+        //     {
+        //         id: 1,
+        //         src: "src/test.jpg",
+        //         title: "Тест-драйв",
+        //         text: "Безлимитный интернет 500 мбит/с. Попробуйте и пользуйтесь услугами в течении 30 дней бесплатно",
+        //         specialText: "Тариф Тест-драйв позволяет использовать услуги провайдера бесплатно в течении 30 дней." +
+        //          "Стартовый платеж при подключении услуг на условиях акции не взимается."+
+        //          "Плата за предоставление доступа и инсталляционный платеж по услугам начисляются в полном объеме в третий месяц пользования услугами или с 31 дня по тарифам и на условиях, действующих в региональных филиалах по тарифам. Если абонент расторгает договор на оказание услуг во время действия промо-периода, то плата за предоставление доступа и инсталляционный платеж абоненту не начисляются.",
+        //         price: 0
+        //     },
+        //     {
+        //         id: 2,
+        //         src: "src/game.jpg",
+        //         title: "Игровой 2в1",
+        //         text: "Безлимитный интернет 890 мбит/с. Интерактивное ТВ",
+        //         specialText: "Помимо высокоскоростного интернета 890 мбит/с по технологии FTTb, тариф также содержит в себя ряд игровых опций для получения преимущества в играх. Интерактивное ТВ включает 224 канала с  возможностью ставить эфир на паузу или смотреть передачи из архива. Доступен онлайн-кинотеатр с доступом более чем к 27000 фильмов и сериалов.",
+        //         price: 1190
+        //     },
+        //     {
+        //         id: 3,
+        //         src: "src/talk.jpg",
+        //         title: "Технологии общения",
+        //         text: "Безлимитный интернет 500 мбит/с. Мобильная связь",
+        //         specialText: "Помимо высокоскоростного интернета 500 мбит/с по технологии FTTb, тариф также дает доступ к мобильной связи. Базовый пакет минут на звоник - 1000 минут. Безлимитные звонки на номера провайдера и звонки из пакета минут на остальные номера даже в поездках по России. 500 СМС на сотовые телефоны домашнего региона. 40 Гб мобильного интернета с максимальной скоростью трафика, а также безлимит для социальных сетей ВК, Telegram, Whatsapp, Одноклассники.",
+        //         price: 890
+        //     },
+        // ]
     }
     
 
     clickAdd() // обработчик нажатия на кнопку добавления карточки 
     {
-        const addData = {
-            id: 0,
-            src: "src/test.jpg",
-            title: "Тест-драйв",
-            text: "Безлимитный интернет 500 мб/с. Попробуйте и пользуйтесь услугами в течении 30 дней бесплатно",
-            specialText: "Тариф Тест-драйв позволяет использовать услуги провайдера бесплатно в течении 30 дней." +
-                 "Стартовый платеж при подключении услуг на условиях акции не взимается."+
-                 "Плата за предоставление доступа и инсталляционный платеж по услугам начисляются в полном объеме в третий месяц пользования услугами или с 31 дня по тарифам и на условиях, действующих в региональных филиалах по тарифам. Если абонент расторгает договор на оказание услуг во время действия промо-периода, то плата за предоставление доступа и инсталляционный платеж абоненту не начисляются.",
-            price: 0
-        }
-        if (this.data.length > 0) // если длина больше 0, то берем последний id (он наибольший) увеличенный на 1
-        {
-            addData.id = this.data.slice(-1)[0].id + 1
-        }
-        else
-        {
-            addData.id = 1 // если длина 0, то id = 1
-        }
-        this.data.push(addData)
-        this.render()
+        
+        const createPage = new CreatePage(this.parent)
+        createPage.render()
+
+
+        // const addData = {
+        //     id: 0,
+        //     src: "src/test.jpg",
+        //     title: "Тест-драйв",
+        //     text: "Безлимитный интернет 500 мб/с. Попробуйте и пользуйтесь услугами в течении 30 дней бесплатно",
+        //     specialText: "Тариф Тест-драйв позволяет использовать услуги провайдера бесплатно в течении 30 дней." +
+        //          "Стартовый платеж при подключении услуг на условиях акции не взимается."+
+        //          "Плата за предоставление доступа и инсталляционный платеж по услугам начисляются в полном объеме в третий месяц пользования услугами или с 31 дня по тарифам и на условиях, действующих в региональных филиалах по тарифам. Если абонент расторгает договор на оказание услуг во время действия промо-периода, то плата за предоставление доступа и инсталляционный платеж абоненту не начисляются.",
+        //     price: 0
+        // }
+        // if (this.data.length > 0) // если длина больше 0, то берем последний id (он наибольший) увеличенный на 1
+        // {
+        //     addData.id = this.data.slice(-1)[0].id + 1
+        // }
+        // else
+        // {
+        //     addData.id = 1 // если длина 0, то id = 1
+        // }
+        // this.data.push(addData)
+        // this.render()
     }
 
     indexOfDataID(id) // вычисление индекса массива по его id
@@ -81,8 +90,8 @@ export class MainPage {
     clickCard(e) // обработчик нажатия на кнопку подробнее на карточке
     {
         const cardId = e.target.dataset.id
-        const tempData = this.data[this.indexOfDataID(cardId)]
-        const productPage = new ProductPage(this.parent, cardId, tempData)
+        //const tempData = this.data[this.indexOfDataID(cardId)]
+        const productPage = new ProductPage(this.parent, cardId)
         productPage.render()
     }
 
@@ -109,24 +118,137 @@ export class MainPage {
         const inputValue = inputElement.value
         //console.log(inputValue)
         
-        this.render(this.filteringData(inputValue))
+        this.render(inputValue)
                 
     }
 
-    delCard(e) // обрабтчик кнопки удаления карточки
+    delCard(e)
     {
+        console.log("DEL")
         const cardId = e.target.dataset.id
-        const index = this.indexOfDataID(cardId)
-        console.log(index)
-        if (index !== -1)
-        {
-            this.data.splice(index, 1)
-        }
-        console.log(this.data)
-        this.render()
+        ajax.delete(stockUrls.removeTariffById(cardId), (data, status) => {
+            if (status === 200) {
+                console.log(status, ' Тариф удален!');
+                this.render()
+            }
+            else
+            {
+                console.log(status, ' Ошибка ', data);
+            }
+        })
+        
     }
 
-    getData() // получение данных
+    changeCard(e)
+    {
+        console.log("UPDATE")
+        const cardId = e.target.dataset.id
+        const createPage = new CreatePage(this.parent, cardId)
+        createPage.render()
+    }
+    
+    // delCard2(e) // обрабтчик кнопки удаления карточки
+    // {
+    //     const cardId = e.target.dataset.id
+    //     const index = this.indexOfDataID(cardId)
+    //     console.log(index)
+    //     if (index !== -1)
+    //     {
+    //         this.data.splice(index, 1)
+    //     }
+    //     console.log(this.data)
+    //     this.render()
+    // }
+
+    // getData(searchString=null) {
+
+
+    //     if (searchString !== null)
+    //     {
+    //         ajax.get(stockUrls.getTariffs(), (data) => {
+    //         this.renderData(data, searchString);})
+            
+    //     }
+    //     else
+    //     {
+            
+    //         ajax.get(stockUrls.getTariffs(), (data) => {
+    //         this.renderData(data);})
+            
+    //     }
+        
+    
+    // }
+
+ fetchAndSaveData(callback) {
+    ajax.get(stockUrls.getTariffs(), (data1, status) => {
+        if (status === 200) {
+            this.data = data1.slice(0);
+            callback(this.data); // Вызываем колбэк с данными
+        } else {
+            callback(null); // Или callback([])
+        }
+    });
+}
+
+    getData(searchString = null) {
+    return new Promise((resolve) => {
+        const handleResponse = (data) => {
+            this.renderData(data);
+            resolve(); // Говорим, что операция завершена
+        };
+        
+        console.log(ajax.get(stockUrls.getTariffs(searchString), handleResponse));
+    });
+    }
+
+    renderData(items) {
+
+        items.forEach((item) => {
+        const productCard = new ProductCardComponent(this.pageRoot)
+        productCard.render(item, this.clickCard.bind(this), this.delCard.bind(this), this.changeCard.bind(this))
+        })
+    
+}
+
+//     getData2(searchString = null) {
+//     return new Promise((resolve) => {
+//         const handleResponse = (data) => {
+//             if (searchString !== null) {
+//                 this.renderData(data, searchString);
+//             } else {
+//                 this.renderData(data);
+//             }
+//             resolve(); // Говорим, что операция завершена
+//         };
+        
+//         console.log(ajax.get(stockUrls.getTariffs(), handleResponse));
+//     });
+//     }
+
+//     renderData2(items, searchString=null) {
+//     if (searchString == null)
+//     {
+//         items.forEach((item) => {
+//         const productCard = new ProductCardComponent(this.pageRoot)
+//         productCard.render(item, this.clickCard.bind(this))
+//         })
+//     }
+//     else
+//     {
+//         items.forEach((item) => {
+//         if (item.title.toLowerCase().includes(searchString.toLowerCase()))
+//         {
+//             const productCard = new ProductCardComponent(this.pageRoot)
+//             productCard.render(item, this.clickCard.bind(this))
+//         }
+        
+//         })
+//     }
+    
+// }
+    
+    getDataOld() // получение данных
     {
         return this.data;
     }
@@ -167,7 +289,17 @@ export class MainPage {
         )
     }
 
-    render(filterData = null/*, searchValue = null*/) {
+    
+
+    render2() {
+        this.parent.innerHTML = ''
+        const html = this.getHTML()
+        this.parent.insertAdjacentHTML('beforeend', html)
+
+        this.getData()
+    }
+    
+    async render(searchStr = null/*, searchValue = null*/) {
         this.parent.innerHTML = ''
 
         const html = this.getHTML()
@@ -177,11 +309,13 @@ export class MainPage {
         const panel = new TopPanelComponent(this.pageRoot)
         panel.render(this.clickHomePanel.bind(this)) 
         
-        let data = this.getData()
-        if (filterData !== null/* && searchValue !== null*/)
-        {
-            data = filterData
-        }
+
+
+        // let data = this.getData()
+        // if (filterData !== null/* && searchValue !== null*/)
+        // {
+        //     data = filterData
+        // }
         
         let searchString = new SearchStringComponent(this.pageRoot)
         searchString.render(this.searchInput.bind(this))
@@ -189,14 +323,27 @@ export class MainPage {
         // кнопка добавления
         const addButton = new AddButtonComponent(this.pageRoot)
         addButton.render(this.clickAdd.bind(this))
-        
-        
-        // отображение карточек
-        data.forEach((item) => {
-            const productCard = new ProductCardComponent(this.pageRoot)
-            productCard.render(item, this.clickCard.bind(this), this.delCard.bind(this))
-        })
+        // if (searchStr !== null) {
+        //     await this.getData(searchStr);
+        // } else {
+        //     await this.getData();
+        // }
+        await this.getData(searchStr);
+        console.log(2)
 
+
+
+        // отображение карточек
+        // data.forEach((item) => {
+        //     const productCard = new ProductCardComponent(this.pageRoot)
+        //     productCard.render(item, this.clickCard.bind(this), this.delCard.bind(this))
+        // })
+
+        
+
+        
+        this.fetchAndSaveData((data) => {
+        console.log(data);
         // кнопка задачи 1.4 ДЗ
         const dz11Button = new DZButtonComponent(this.pageRoot, 11, `Вычисление суммарной стоимости тарифов`)
         dz11Button.render((e) => {
@@ -220,8 +367,7 @@ export class MainPage {
             this.showAlert('live-alert-dz3', this.palindromcheck("Тест-драйв"))
         })
 
-        console.log(this.isPalindrom1("А роза упала на лапу Азора"))
-        console.log(this.isPalindrom2("А роза упала на лапу Азора")) 
+        });
     }
 
     getSumAndMultOfArray()
