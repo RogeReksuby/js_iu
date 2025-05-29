@@ -23,6 +23,12 @@
     margin-top: 10px;
 }
 
+.btn.mycard-button.search{
+    margin-top: 0;
+    margin-bottom: 5px;
+    height: 35px;
+}
+
 .btn.mycard-button:hover {
     background: #d93d0c;
     color: white;
